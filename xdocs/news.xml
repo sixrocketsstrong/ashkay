@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <author email="bangroot.AT.users.sf.net">bangroot</author>
+    <title>ashkay News and Status</title>
+  </properties>
+
+  <meta name="keyword" content="caching, java"/>
+
+<body>
+
+<section name="20.10.2004">
+	<p>
+		Today marks the release of ashkay 0.6. Why 0.6 on a new project? Well, ashkay has been around an in production
+		for a long time on a number of my own little home projects. I wrote it, I maintain it. The most recent
+        incarnation has come from another project of mine, xot. I kept adding features and fixing small defects and
+		needed a new release of xot to maintain it. So, I forked it to it's own project. And, here it is.
+	</p>
+</section>
+</body>
+</document>

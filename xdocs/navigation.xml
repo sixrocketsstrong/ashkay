@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+	<body>
+		<menu name="Overview">
+			<item href="/overview.html" name="Overview"></item>
+			<item href="/roadmap.html" name="Roadmap"></item>
+			<item href="/news.html" name="News and Status"></item>
+		</menu>
+	</body>
+</project>

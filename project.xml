@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
+<!--
 /*
  * Copyright 2001-2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,18 +31,24 @@
   <inceptionYear>2004</inceptionYear>
   <package>net.sf.ashkay</package>
   <logo>http://maven.apache.org/images/maven.jpg</logo>
-  <description>
-  	A different take on slicing the caching problem domain. Ashkay implements
-	a strategy based caching model. Developers have obvious points of extension
-	to this lightweight cache. The same cache can be turned off during 
-	development with minimal code impacts.
-  </description>
+	<description>
+		How many classes does it take to make a cache? 60? 80? You might think so if you look at the other caches on the market.
+		Ashkay is a streamlined, simple cache that in many ways is more powerful than the other mainstream caches.
+
+		Ashkay is a strategy based caching tool. In most cases, you might be using a configuration file to tell the cache what
+		rules it should obey. Or, you might just be setting properties on the cache. I have never liked this model as it limits
+		me, the user of the cache to strategies the developer decided were important. Instead, Ashkay lets you choose the
+		strategy(ies) to use when caching certain objects. Of course, a few of the most handy strategies are pre-packaged, but
+		implementing a new one is a simple as can be.
+
+		Ashkay is a fork of <a href="http://xot.sf.net">xot</a> caching code. Made more sense on its own.
+	</description>
   <shortDescription>Strategy based Java caching.</shortDescription>
   <url>http://ashkay.sf.net</url>
   <issueTrackingUrl>http://nagoya.apache.org/scarab/servlet/scarab/</issueTrackingUrl>
   <siteAddress>ashkay.sf.net</siteAddress>
-  <siteDirectory>/www/maven.apache.org/reference/plugins/examples/</siteDirectory>
-  <distributionDirectory>/www/maven.apache.org/builds/</distributionDirectory>
+  <siteDirectory>/home/groups/a/as/ashkay/htdocs/</siteDirectory>
+  <distributionDirectory>/home/groups/a/as/ashkay/htdocs/downloads</distributionDirectory>
   <repository>
     <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:maven-plugins/examples</connection>
     <url>http://cvs.apache.org/viewcvs/maven-plugins/examples/</url>
@@ -58,6 +64,10 @@
 		<id>concurrent</id>
 		<version>1.3.4</version>
 	</dependency>
+	  <dependency>
+		  <id>junit</id>
+		  <version>3.8.1</version>
+	  </dependency>
   </dependencies>
   <build>
     <nagEmailAddress>bangroot@users.sf.net</nagEmailAddress>

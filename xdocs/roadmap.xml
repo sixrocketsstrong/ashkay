@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <author email="bangroot.AT.users.sf.net">bangroot</author>
+    <title>ashkay Roadmap</title>
+  </properties>
+
+  <meta name="keyword" content="caching, java"/>
+
+<body>
+
+	<section name="Roadmap">
+		As handy as ashkay already is, to be a production quality cache, a few features are needed. Currently, since ashkay
+		is stable and production ready, it is at a 0.6 level. Features planned for each new release before 1.0:
+		<subsection name="0.7">
+			<ul>
+				<li>Observable support for ObjectCache</li>
+				<li>JDBC timestamped column strategy</li>
+			</ul>
+		</subsection>
+		<subsection name="0.8">
+			<ul>
+				<li>Cluster support</li>
+				<li>Hibernate provider</li>
+			</ul>
+		</subsection>
+		<subsection name="0.9">
+			<ul>
+				<li>JMX support</li>
+				<li>SMNP support(?)</li>
+			</ul>
+		</subsection>
+	</section>
+</body>
+</document>

@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<document>
+
+  <properties>
+    <author email="bangroot.AT.users.sf.net">bangroot</author>
+    <title>ashkay News and Status</title>
+  </properties>
+
+  <meta name="keyword" content="caching, java"/>
+
+<body>
+
+<section name="Overview">
+	Ashkay is a strategy based caching tool. In most cases, you might be using a configuration file to tell the cache what
+	rules it should obey. Or, you might just be setting properties on the cache. I have never liked this model as it limits
+	me, the user of the cache to strategies the developer decided were important. Instead, Ashkay lets you choose the
+	strategy(ies) to use when caching certain objects. Of course, a few of the most handy strategies are pre-packaged, but
+	implementing a new one is a simple as can be.
+
+	<subsection name="Standalone or Factory">
+		<p>
+		Creating a usable cache is simple:
+		<pre>
+			ObjectCache cache = new ObjectCache();
+		</pre>
+		At this point, you have complete control over the cache. Methods such as <code>put(Object, Object)</code>,
+		<code>get(Object)</code>, etc. allow you to use the cache in any manner you want. Of course, just like this, the
+		ObjectCache is little more than a HashMap. The first thing you might want to do is ask the cache to delegate to a
+		factory if the object you are looking for is not in the cache. You can do this by passing an object that implements the
+		ObjectFactory interface into the cache during construction:
+		<pre>
+			ObjectCache cache = new ObjectCache(new SomeFactory());
+		</pre>
+		Once this is done, any call to get an object from the cache that would return null or the cache entry is invalid, will
+		call the <code>createObject()</code> method of the specified factory. So, for example, if you have a Person object that
+		you want cached, your Person class might look like:
+		<pre>
+			public class Person {
+				private static ObjectCache cache = new ObjectCache(new PersonFactory());
+
+				private String name;
+				public Person(String name)
+				{
+					this.name = name;
+				}
+
+				public static Person findPerson(String name)
+				{
+					return cache.get(name);
+				}
+			}
+		</pre>
+		The PersonFactory class would be:
+		<pre>
+			public class PersonFactory implements ObjectFactory {
+				public Object createObjectFor(Object key, Object data)
+				{
+					return new Person((String) key);
+				}
+			}
+		</pre>
+		When you make a call to <code>cache.get()</code> passing in a name that is not in the cache, then the cache will ask the
+		PersonFactory to create the Person. Then, before returning the Person to the calling code, the cache prepares the entry
+		and adds it to the cache.
+		</p>
+	</subsection>
+	<subsection name="Strategies">
+		<p>
+		With or without an ObjectFactory, the cache is still a little more than a glorified HashMap without some way of expiring
+		a cache entry, or hint that an entry should be re-loaded. This is the work of the <code>CachingStrategy</code>
+		implementations. An ObjectCache may have 0 to many strategies associated with it. When an object is put into the cache,
+		or a factory creates one, that object is wrapped in an internal <code>CacheEntry</code> and each strategy is asked to
+		<code>prepare</code> the entry. It may do nothing, or it may set a property on the entry, or, it may even return a whole
+		new CacheEntry, wrapping the old one. Each subsequent call to <code>get</code> the object from the cache will ask each
+		strategy to <code>verify</code> the entry. If any strategy fails, the object is reloaded from the factory, or null is
+		returned.
+		<br />
+		CachingStrategies are very simple and can be combined together to perform very sophisticated caching implementations.
+		Prepackaged with ashkay are several common strategies:
+		<dl>
+			<dt>NullCachingStrategy</dt>
+			<dd>Caches nothing. The size method will not work right in this strategy as the NullCachingStrategy actually just
+			uses a SoftReferenceCachingStrategy but returns false on all verifies.</dd>
+			<dt>FullCachingStrategy</dt>
+			<dd>Always returns true from verify.</dd>
+			<dt>SoftReferenceCachingStrategy</dt>
+			<dd>For memory sensative situations, a SoftReferenceCachingStrategy wraps each object in a SoftReference allowing it
+			to be garbage collected if need be,</dd>
+			<dt>LastModifiedCachingStrategy</dt>
+			<dd>Checks the last modified time on a resource. If it has been modified, it will fail verification.</dd>
+			<dt>TimeExpirationCachingStrategy</dt>
+			<dd>Expires an extry after a designated time.</dd>
+		</dl>
+		How might you combine these. Let's say you are caching XSL Transforms. They are expensive to create so caching them
+		makes a lot of sense. But, if you are reading them from a file, you would like to have the update when the file changes;
+		And, you don't want them hanging around if they are not used much. You can create a factory that creates a transform
+		from a filename that is a key. When you create the object cache, just add both strategies; SoftRefernce for memory and
+		LastModified to take care of the file changing. Easy peezy.
+		</p>
+	</subsection>
+</section>
+</body>
+</document>
