@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>ashkay</groupId>
+  <artifactId>ashkay</artifactId>
+  <version>0.6</version>
+  <name>Ashkay Java Caching</name>
+  <description>How many classes does it take to make a cache? 60? 80? You might think so if you look at the other caches on the market.
+		Ashkay is a streamlined, simple cache that in many ways is more powerful than the other mainstream caches.
+
+		Ashkay is a strategy based caching tool. In most cases, you might be using a configuration file to tell the cache what
+		rules it should obey. Or, you might just be setting properties on the cache. I have never liked this model as it limits
+		me, the user of the cache to strategies the developer decided were important. Instead, Ashkay lets you choose the
+		strategy(ies) to use when caching certain objects. Of course, a few of the most handy strategies are pre-packaged, but
+		implementing a new one is a simple as can be.
+
+		Ashkay is a fork of xot caching code. Made more sense on its own.</description>
+  <url>http://ashkay.sourceforge.net</url>
+  <dependencies>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.8</version>
+    </dependency>
+    <dependency>
+      <groupId>concurrent</groupId>
+      <artifactId>concurrent</artifactId>
+      <version>1.3.4</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-site-plugin</artifactId>
+        <configuration>
+          <moduleExcludes>
+            <xdoc>navigation.xml</xdoc>
+          </moduleExcludes>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <includes>
+            <include>**/*Test.java</include>
+          </includes>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <reporting>
+    <plugins>
+      <plugin>
+        <artifactId>maven-changes-plugin</artifactId>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>changes-report</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+        <configuration>
+          <xmlPath>${basedir}/xdocs/changes.xml</xmlPath>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+          <show>package</show>
+        </configuration>
+      </plugin>
+    </plugins>
+  </reporting>
+</project>
