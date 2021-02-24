@@ -13,18 +13,24 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package net.sf.ashkay;
+package com.sixrockets.ashkay.strategies;
 
-
+import com.sixrockets.ashkay.CacheEntry;
 
 /**
- * ObjectFactory is the factory for creating objects used by the ObjectCache.
- * Implementations of ObjectFactories will need to exist for each type of object
- * to be cached.
- *
- * @see net.sf.ashkay.ObjectCache
- * @author <a href="mailto:bangroot@users.sf.net">Dave Brown</a>
+ * NullCachingStrategy prevents the cache from caching any data about the object
  */
-public interface ObjectFactory {
-    Object createObjectFor(Object key, Object data) throws net.sf.ashkay.CreationException;
+
+public class NullCachingStrategy extends SoftReferenceCachingStrategy {
+
+  /**
+   * Always returns false.
+   *
+   * @param entry - the entry to validate
+   * @return false to force factory loads each time.
+   */
+  public boolean validate(CacheEntry<?, ?> entry) {
+    super.validate(entry);
+    return false;
+  }
 }

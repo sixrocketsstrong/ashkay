@@ -13,10 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package net.sf.ashkay;
-
-
-
+package com.sixrockets.ashkay;
 
 /**
  * CachingStrategies provide abstract strategies about how a cache ought to
@@ -29,20 +26,19 @@ package net.sf.ashkay;
  * validate this object, if the validation fails for any strategy, the object is
  * reloaded.
  *
- * @author <a href="mailto:bangroot@users.sf.net">Dave Brown</a>
+ * @author <a href="mailto:dave@sixrockets.com">Dave Brown</a>
  */
 public interface CachingStrategy {
+  /**
+   * Prepares the cache entry for caching with this strategy.<br>
+   * <b>NOTE:</b> Be Careful: a caching strategy <em>is</em> allowed to return
+   * a different CacheEntry, so make sure that you store the results of this
+   * method and don't assume the symantics of pass by reference.
+   */
+  public abstract <T, K> CacheEntry<T, K> prepare(CacheEntry<T, K> entry);
 
-    /**
-     * Prepares the cache entry for caching with this strategy.<br>
-     * <b>NOTE:</b> Be Careful: a caching strategy <em>is</em> allowed to return
-     * a different CacheEntry, so make sure that you store the results of this
-     * method and don't assume the symantics of pass by reference.
-     */
-    public abstract CacheEntry prepare(CacheEntry entry);
-
-    /**
-     * Validates this cache entry for this caching strategy.
-     */
-    public abstract boolean validate(CacheEntry entry);
+  /**
+   * Validates this cache entry for this caching strategy.
+   */
+  public abstract boolean validate(CacheEntry<?, ?> entry);
 }

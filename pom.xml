@@ -3,7 +3,7 @@
   xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>ashkay</groupId>
+  <groupId>com.sixrockets</groupId>
   <artifactId>ashkay</artifactId>
   <version>0.6</version>
   <name>Ashkay Java Caching</name>
@@ -18,12 +18,12 @@
 
 		Ashkay is a fork of xot caching code. Made more sense on its own.</description>
   <url>http://ashkay.sourceforge.net</url>
+  <properties>
+    <jdk.version>11</jdk.version>
+    <maven.compiler.target>${jdk.version}</maven.compiler.target>
+    <maven.compiler.source>${jdk.version}</maven.compiler.source>
+  </properties>
   <dependencies>
-    <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <version>1.2.8</version>
-    </dependency>
     <dependency>
       <groupId>concurrent</groupId>
       <artifactId>concurrent</artifactId>

@@ -13,14 +13,14 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package net.sf.ashkay.strategies;
+package com.sixrockets.ashkay.strategies;
+
+import com.sixrockets.ashkay.CacheEntry;
+import com.sixrockets.ashkay.ObjectCache;
 
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.SoftReference;
 import java.util.Map;
-
-import net.sf.ashkay.CacheEntry;
-import net.sf.ashkay.ObjectCache;
 
 /**
  * SoftReferenceCacheEntry represents a cache entry that is wrapped in which
@@ -30,75 +30,63 @@ import net.sf.ashkay.ObjectCache;
  * <br><br>
  * Often, this strategy will be used in memory sensative caches.
  *
- * @author <a href="mailto:bangroot@users.sf.net">Dave Brown</a>
+ * @author <a href="mailto:dave@sixrockets.com">Dave Brown</a>
  * @see java.lang.ref.SoftReference
  */
 
-public class SoftReferenceCacheEntry extends CacheEntry
-{
-	private CacheEntry theEntry;
+public class SoftReferenceCacheEntry<T extends Object, K> extends CacheEntry<T, K> {
 
-	public SoftReferenceCacheEntry(CacheEntry originalEntry, ReferenceQueue queue)
-	{
+	private CacheEntry<Object, K> theEntry;
+
+	public SoftReferenceCacheEntry(CacheEntry<T, K> originalEntry, ReferenceQueue<T> queue) {
 		super();
-		theEntry = originalEntry;
-		theEntry.setEntryObject(new SoftReference(theEntry.getEntryObject(), queue));
+		theEntry = (CacheEntry<Object, K>) originalEntry;
+		theEntry.setEntryObject(new SoftReference<T>((T) theEntry.getEntryObject(), queue));
 	}
 
-	SoftReference getEntryReference()
-	{
-		return (SoftReference) theEntry.getEntryObject();
+	SoftReference<T> getEntryReference() {
+		return (SoftReference<T>) theEntry.getEntryObject();
 	}
 
-	public Object getEntryObject()
-	{
-		SoftReference ref = (SoftReference) theEntry.getEntryObject();
+	public T getEntryObject() {
+		SoftReference<T> ref = (SoftReference<T>) theEntry.getEntryObject();
 		return ref.get();
 	}
 
-	public void addProperties(Map propertiesToAdd)
-	{
+	public void addProperties(Map propertiesToAdd) {
 		theEntry.addProperties(propertiesToAdd);
 	}
 
-	public void addProperty(Object key, Object value)
-	{
+	public void addProperty(Object key, Object value) {
 		theEntry.addProperty(key, value);
 	}
 
-	public Object getProperty(Object key)
-	{
+	public Object getProperty(Object key) {
 		return theEntry.getProperty(key);
 	}
 
-	public void setEntryObject(Object entryObject)
-	{
+	public void setEntryObject(Object entryObject) {
 		SoftReference ref = new SoftReference(entryObject);
 		theEntry.setEntryObject(ref);
 	}
 
-	public Object getEntryKey()
-	{
+	public Object getEntryKey() {
 		return theEntry.getEntryKey();
 	}
 
-	public void setEntryKey(Object key)
-	{
+	public void setEntryKey(K key) {
 		theEntry.setEntryKey(key);
 	}
 
-	public Map getProperties()
-	{
+	public Map getProperties() {
 		return theEntry.getProperties();
 	}
 
-	public ObjectCache getCache()
-	{
+	public ObjectCache getCache() {
 		return theEntry.getCache();
 	}
 
-	public void setCache(ObjectCache myCache)
-	{
+	public void setCache(ObjectCache myCache) {
 		theEntry.setCache(myCache);
 	}
 }

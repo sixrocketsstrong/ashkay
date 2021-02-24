@@ -13,31 +13,16 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package net.sf.ashkay.strategies;
-
-import junit.framework.TestCase;
-import net.sf.ashkay.ObjectCache;
+package com.sixrockets.ashkay;
 
 /**
- *
+ * LazyObjectFactory is a factory tailored to use in a lazy instantiation model.
+ * While not using the LazyObjectFactory interface for a specific class' factory
+ * does not prohibit using lazy instantiation, the lazy object factory provides
+ * a clean interface to allow the object to return to his factory to get fully
+ * constructed
+ * @author <a href="mailto:dave@sixrockets.com">Dave Brown</a>
  */
-public class FullCachingStrategyTest extends TestCase
-{
-	public void testBasicStrategy() throws Exception
-	{
-		MockObjectFactory factory = new MockObjectFactory();
-		ObjectCache cache = new ObjectCache(factory);
-		cache.addStrategy(new FullCachingStrategy());
-
-		assertEquals("Bad initial count", 0, factory.counter);
-
-		String key = "Test";
-		cache.get(key);
-
-		assertEquals("Factory not called initially",1,factory.counter);
-
-		cache.get(key);
-
-		assertEquals("Factory called again.", 1, factory.counter);
-	}
+public interface LazyObjectFactory<T, K> extends ObjectFactory<T, K> {
+  void constructObject(Object objectToContruct);
 }

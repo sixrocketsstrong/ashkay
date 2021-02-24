@@ -13,17 +13,16 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package net.sf.ashkay;
+package com.sixrockets.ashkay;
 
 /**
- * LazyObjectFactory is a factory tailored to use in a lazy instantiation model.
- * While not using the LazyObjectFactory interface for a specific class' factory
- * does not prohibit using lazy instantiation, the lazy object factory provides
- * a clean interface to allow the object to return to his factory to get fully
- * constructed
- * @author <a href="mailto:bangroot@users.sf.net">Dave Brown</a>
+ * ObjectFactory is the factory for creating objects used by the ObjectCache.
+ * Implementations of ObjectFactories will need to exist for each type of object
+ * to be cached.
+ *
+ * @see com.sixrockets.ashkay.ObjectCache
+ * @author <a href="mailto:dave@sixrockets.com">Dave Brown</a>
  */
-public interface LazyObjectFactory extends ObjectFactory
-{
-    void constructObject(Object objectToContruct);
+public interface ObjectFactory<T, K> {
+  T createObjectFor(K key, Object data) throws CreationException;
 }

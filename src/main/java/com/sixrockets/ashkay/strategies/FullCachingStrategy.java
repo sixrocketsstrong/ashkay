@@ -13,11 +13,10 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package net.sf.ashkay.strategies;
+package com.sixrockets.ashkay.strategies;
 
-import net.sf.ashkay.CacheEntry;
-import net.sf.ashkay.CachingStrategy;
-
+import com.sixrockets.ashkay.CacheEntry;
+import com.sixrockets.ashkay.CachingStrategy;
 
 /**
  * FullCachingStrategy implements the CachingStrategy interface to provide a
@@ -25,18 +24,16 @@ import net.sf.ashkay.CachingStrategy;
  * reference to any object and the factory will not be called for this object
  * again, unless the ObjectCache is cleared.
  *
- * @author <a href="mailto:bangroot@users.sf.net">Dave Brown</a>
+ * @author <a href="mailto:dave@sixrockets.com">Dave Brown</a>
  * @see CachingStrategy
  */
-public class FullCachingStrategy implements CachingStrategy
-{
-	public CacheEntry prepare(CacheEntry entry)
-	{
-		return entry;
-	}
+public class FullCachingStrategy implements CachingStrategy {
 
-	public boolean validate(CacheEntry entry)
-	{
-		return true;
-	}
+  public <T, K> CacheEntry<T, K> prepare(CacheEntry<T, K> entry) {
+    return entry;
+  }
+
+  public boolean validate(CacheEntry<?, ?> entry) {
+    return true;
+  }
 }
